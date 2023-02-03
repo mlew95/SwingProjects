@@ -49,6 +49,23 @@ public class Frame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == save) {
+            JFileChooser fileChooser = new JFileChooser();
+            int answer = fileChooser.showSaveDialog(null);
 
+            if (answer == JFileChooser.APPROVE_OPTION) {
+                TextEditor.save(textArea.getText(), fileChooser.getSelectedFile().getAbsolutePath());
+            }
+        }
+
+        if (e.getSource() == open) {
+            JFileChooser fileChooser = new JFileChooser();
+            int answer = fileChooser.showOpenDialog(null);
+
+            if (answer == JFileChooser.APPROVE_OPTION) {
+                String text = TextEditor.open(fileChooser.getSelectedFile().getAbsolutePath());
+                textArea.setText(text);
+            }
+        }
     }
 }
