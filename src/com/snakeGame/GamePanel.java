@@ -14,6 +14,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private Timer timer;
     private int x = 50;
     private int y = 50;
+    private char direction = 'P';
 
 
     public GamePanel() {
@@ -39,7 +40,24 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyChar());
+
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP :
+                direction = 'U';
+                break;
+
+            case KeyEvent.VK_DOWN :
+                direction = 'D';
+                break;
+
+            case KeyEvent.VK_LEFT :
+                direction = 'L';
+                break;
+
+            case KeyEvent.VK_RIGHT :
+                direction = 'R';
+                break;
+        }
     }
 
     @Override
@@ -49,7 +67,25 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        x += 1;
+
+        switch (direction) {
+            case 'U' :
+                y -= 10;
+                break;
+
+            case 'D' :
+                y += 10;
+                break;
+
+            case 'R' :
+                x += 10;
+                break;
+
+            case 'L' :
+                x -= 10;
+                break;
+        }
+
         repaint();
     }
 }
