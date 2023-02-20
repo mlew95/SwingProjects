@@ -18,6 +18,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private char direction = 'P';
     private int appleX;
     private int appleY;
+    private boolean running = true;
 
 
     public GamePanel() {
@@ -85,7 +86,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        switch (direction) {
+       /* switch (direction) {
             case 'U' :
                 y -= 10;
                 break;
@@ -101,8 +102,29 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             case 'L' :
                 x -= 10;
                 break;
-        }
+        }*/
 
+        move();
         repaint();
+    }
+
+    public void move() {
+        switch (direction) {
+            case 'U':
+                y -= 10;
+                break;
+
+            case 'D':
+                y += 10;
+                break;
+
+            case 'R':
+                x += 10;
+                break;
+
+            case 'L':
+                x -= 10;
+                break;
+        }
     }
 }
