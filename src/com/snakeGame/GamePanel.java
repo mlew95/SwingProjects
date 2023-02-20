@@ -55,6 +55,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         g.fillOval(appleX,appleY,20,20);
         g.setColor(Color.black);
         g.fillRect(snakeX,snakeY,25,25);
+
+        if (!running) {
+            label.setText("Game over, Score : " + score);
+        }
     }
 
     @Override
@@ -91,9 +95,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        move();
-        checkApple();
-        repaint();
+            move();
+            checkApple();
+            checkCollision();
+            repaint();
+
     }
 
     public void move() {
@@ -121,5 +127,28 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             newApple();
             score++;
         }
+    }
+
+    public void checkCollision() {
+        if (snakeX < 10) {
+            gameOver();
+        }
+
+        if (snakeX > 470) {
+            gameOver();
+        }
+
+        if (snakeY < 10) {
+            gameOver();
+        }
+
+        if (snakeY > 470) {
+            gameOver();
+        }
+    }
+
+    private void gameOver() {
+        running = false;
+        timer.stop();
     }
 }
