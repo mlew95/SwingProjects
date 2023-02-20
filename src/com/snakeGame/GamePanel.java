@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
@@ -15,6 +16,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private int x = 50;
     private int y = 50;
     private char direction = 'P';
+    private int appleX;
+    private int appleY;
 
 
     public GamePanel() {
@@ -23,13 +26,27 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         this.setFocusable(true);
         this.addKeyListener(this);
 
-        timer = new Timer(10,this);
+        timer = new Timer(50,this);
+        startGame();
+    }
+
+    public void startGame() {
+        newApple();
         timer.start();
+    }
+
+    private void newApple() {
+        Random rand = new Random();
+        appleX = rand.nextInt(478) + 1;
+        appleY = rand.nextInt(478) + 1;
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        g.setColor(Color.red);
+        g.fillOval(appleX,appleY,20,20);
+        g.setColor(Color.black);
         g.fillRect(x,y,25,25);
     }
 
