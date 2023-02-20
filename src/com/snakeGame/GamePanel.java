@@ -19,11 +19,16 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private int appleX;
     private int appleY;
     private boolean running = true;
+    private int score = 0;
+    private JLabel label;
 
 
     public GamePanel() {
+        label = new JLabel("Score : " + score);
+        label.setFont(new Font("Rockwell",Font.ITALIC,40));
         this.setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
         this.setBackground(new Color(92,182,23));
+        this.add(label);
         this.setFocusable(true);
         this.addKeyListener(this);
 
@@ -45,6 +50,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        label.setText("Score : "  + score);
         g.setColor(Color.red);
         g.fillOval(appleX,appleY,20,20);
         g.setColor(Color.black);
@@ -113,6 +119,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     public void checkApple() {
         if ((snakeX / 30 == appleX/30) && (snakeY / 30 == appleY/30)) {
             newApple();
+            score++;
         }
     }
 }
