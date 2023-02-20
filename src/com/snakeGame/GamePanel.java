@@ -13,8 +13,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private static final int SCREEN_HEIGHT = 500;
     private static final int SCREEN_WIDTH = 500;
     private Timer timer;
-    private int x = 50;
-    private int y = 50;
+    private int snakeX = 50;
+    private int snakeY = 50;
     private char direction = 'P';
     private int appleX;
     private int appleY;
@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.red);
         g.fillOval(appleX,appleY,20,20);
         g.setColor(Color.black);
-        g.fillRect(x,y,25,25);
+        g.fillRect(snakeX,snakeY,25,25);
     }
 
     @Override
@@ -85,46 +85,34 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-       /* switch (direction) {
-            case 'U' :
-                y -= 10;
-                break;
-
-            case 'D' :
-                y += 10;
-                break;
-
-            case 'R' :
-                x += 10;
-                break;
-
-            case 'L' :
-                x -= 10;
-                break;
-        }*/
-
         move();
+        checkApple();
         repaint();
     }
 
     public void move() {
         switch (direction) {
             case 'U':
-                y -= 10;
+                snakeY -= 10;
                 break;
 
             case 'D':
-                y += 10;
+                snakeY += 10;
                 break;
 
             case 'R':
-                x += 10;
+                snakeX += 10;
                 break;
 
             case 'L':
-                x -= 10;
+                snakeX -= 10;
                 break;
+        }
+    }
+
+    public void checkApple() {
+        if ((snakeX / 30 == appleX/30) && (snakeY / 30 == appleY/30)) {
+            newApple();
         }
     }
 }
