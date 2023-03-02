@@ -13,14 +13,15 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private static final int SCREEN_HEIGHT = 500;
     private static final int SCREEN_WIDTH = 500;
     private Timer timer;
-    private int snakeX = 50;
-    private int snakeY = 50;
-    private char direction = 'P';
+    private int[] snakeX = new int[200];
+    private int[] snakeY = new int[200];
+    private char direction = 'R';
     private int appleX;
     private int appleY;
     private boolean running = true;
     private int score = 0;
     private JLabel label;
+    private int bodyParts = 10;
 
 
     public GamePanel() {
@@ -54,7 +55,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.red);
         g.fillOval(appleX,appleY,20,20);
         g.setColor(Color.black);
-        g.fillRect(snakeX,snakeY,25,25);
+
+
+        for (int i = 0; i < bodyParts; i++) {
+            g.fillRect(snakeX[i],snakeY[i],25,25);
+        }
 
         if (!running) {
             label.setText("Game over, Score : " + score);
@@ -97,39 +102,45 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
             move();
             checkApple();
-            checkCollision();
+         //   checkCollision();
             repaint();
 
     }
 
     public void move() {
+        for (int i = bodyParts; i > 0; i--) {
+            snakeX[i] = snakeX[i-1];
+            snakeY[i] = snakeY[i-1];
+        }
+
         switch (direction) {
             case 'U':
-                snakeY -= 10;
+                snakeY[0] -= 10;
                 break;
 
             case 'D':
-                snakeY += 10;
+                snakeY[0] += 10;
                 break;
 
             case 'R':
-                snakeX += 10;
+                snakeX[0] += 10;
                 break;
 
             case 'L':
-                snakeX -= 10;
+                snakeX[0] -= 10;
                 break;
         }
     }
 
     public void checkApple() {
-        if ((snakeX / 30 == appleX/30) && (snakeY / 30 == appleY/30)) {
+        if ((snakeX[0] / 30 == appleX/30) && (snakeY[0] / 30 == appleY/30)) {
             newApple();
             score++;
+            bodyParts++;
         }
     }
 
-    public void checkCollision() {
+    /*public void checkCollision() {
         if (snakeX < 10) {
             gameOver();
         }
@@ -145,7 +156,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         if (snakeY > 470) {
             gameOver();
         }
-    }
+    }*/
 
     private void gameOver() {
         running = false;
