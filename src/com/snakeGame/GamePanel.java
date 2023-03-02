@@ -21,7 +21,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private boolean running = true;
     private int score = 0;
     private JLabel label;
-    private int bodyParts = 10;
+    private int bodyParts = 1;
 
 
     public GamePanel() {
@@ -32,8 +32,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         this.add(label);
         this.setFocusable(true);
         this.addKeyListener(this);
+        snakeX[0] = 250;
+        snakeY[0] = 250;
 
-        timer = new Timer(50,this);
+        timer = new Timer(700,this);
         startGame();
     }
 
@@ -102,9 +104,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
             move();
             checkApple();
-         //   checkCollision();
+            checkCollision();
             repaint();
-
     }
 
     public void move() {
@@ -140,23 +141,23 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         }
     }
 
-    /*public void checkCollision() {
-        if (snakeX < 10) {
+    public void checkCollision() {
+        if (snakeX[0] < 0) {
             gameOver();
         }
 
-        if (snakeX > 470) {
+        if (snakeX[0] > 470) {
             gameOver();
         }
 
-        if (snakeY < 10) {
+        if (snakeY[0] < 10) {
             gameOver();
         }
 
-        if (snakeY > 470) {
+        if (snakeY[0] > 470) {
             gameOver();
         }
-    }*/
+    }
 
     private void gameOver() {
         running = false;
