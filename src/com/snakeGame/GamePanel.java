@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         snakeX[0] = 250;
         snakeY[0] = 250;
 
-        timer = new Timer(700,this);
+        timer = new Timer(70,this);
         startGame();
     }
 
@@ -78,18 +78,22 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP :
-                direction = 'U';
+                if (direction != 'D')
+                    direction = 'U';
                 break;
 
             case KeyEvent.VK_DOWN :
+                if (direction != 'U')
                 direction = 'D';
                 break;
 
             case KeyEvent.VK_LEFT :
+                if (direction != 'R')
                 direction = 'L';
                 break;
 
             case KeyEvent.VK_RIGHT :
+                if (direction != 'L')
                 direction = 'R';
                 break;
         }
